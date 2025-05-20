@@ -18,6 +18,7 @@ module "jenkins-ec2" {
   security-group-Jenkins = module.security-group.Jenkins-SG
   key-pair = module.aws-key-pair.aws-key-pair-output
   ami-id = var.ami_id
+  user-data-jenkins = file("${path.module}/ansible_installation.sh")
 }
 
 module "kubernetes-master" {
@@ -27,6 +28,7 @@ module "kubernetes-master" {
   instance-type-for-k8s-master = var.instance_type_k8s_master
   security-group = module.security-group.Kubernetes-Master
   subnet-id = module.vpc.subnet-output
+  user-data-master = file("${path.module}/usercreation.sh")
 }
 
 module "kubernetes-slave" {
@@ -36,6 +38,7 @@ module "kubernetes-slave" {
   instance-type-for-k8s-slave = var.instance_type_k8s_slave
   subnet-id = module.vpc.subnet-output
   security-group = module.security-group.Kubernetes-Slave
+  user-data-slave = file("${path.module}/usercreation.sh")
 }
 
 module "aws-key-pair" {

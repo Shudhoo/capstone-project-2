@@ -6,6 +6,7 @@ variable "instance-type-for-Jenkins" {}
 variable "subnet-id-Jenkins" {}
 variable "security-group-Jenkins" {}
 variable "key-pair" {}
+variable "user-data-jenkins" {}
 
 resource "aws_instance" "Jenkins-ec2-instance" {
   ami =var.ami-id
@@ -14,6 +15,10 @@ resource "aws_instance" "Jenkins-ec2-instance" {
   subnet_id = var.subnet-id-Jenkins
   vpc_security_group_ids = [var.security-group-Jenkins]
   associate_public_ip_address = true
+  user_data = var.user-data-jenkins
+  tags = {
+    Name = "Jenkins-Master"
+  }
 }
 
 

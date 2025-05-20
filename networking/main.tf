@@ -13,6 +13,8 @@ output "vpc-id" {
 # This is VPC
 resource "aws_vpc" "project-vpc" {
   cidr_block = var.vpc-cidr
+  enable_dns_hostnames = true
+  enable_dns_support = true
   tags = {
     Name = "capstone-project-vpc"
   }
@@ -36,7 +38,7 @@ resource "aws_subnet" "project-subnet" {
   cidr_block = var.subnet-cidr
 
   tags = {
-    name = "capstone-project-subnet-public"
+    Name = "capstone-project-subnet-public"
   }
 }
 

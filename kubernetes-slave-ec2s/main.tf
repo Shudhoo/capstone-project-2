@@ -3,7 +3,7 @@ variable "subnet-id" {}
 variable "security-group" {}
 variable "instance-type-for-k8s-slave" {}
 variable "key-pair" {}
-
+variable "user-data-slave" {}
 
 resource "aws_instance" "K8s-slave1-ec2-instance" {
   count = 2
@@ -13,4 +13,9 @@ resource "aws_instance" "K8s-slave1-ec2-instance" {
   subnet_id = var.subnet-id
   vpc_security_group_ids = [var.security-group]
   associate_public_ip_address = true
+  user_data = var.user-data-slave
+
+  tags = {
+    Name = "Kubernetes-Slaves"
+  }
 }
